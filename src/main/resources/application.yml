@@ -4,12 +4,12 @@ server:
 spring:
     datasource:
         driver-class-name: com.mysql.cj.jdbc.Driver
-        url: jdbc:mysql://localhost:3306/TimmyRoom
-        username: test
-        password: test
+        url: jdbc:mysql://db-timmyroom.c5scqy22wuv0.ap-northeast-2.rds.amazonaws.com:3306/TimmyRoom
+        username: admin
+        password: Enlwu5413!
     jpa:
         hibernate:
-            ddl-auto: create
+            ddl-auto: validate
         generate-ddl: false
         properties:
             hibernate:
