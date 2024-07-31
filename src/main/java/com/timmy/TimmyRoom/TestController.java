@@ -12,17 +12,9 @@ import java.util.List;
 public class TestController {
 
     @Autowired
-    private TestService testService;
-
-    @Autowired
     private TestRepository testRepository;
 
-    @GetMapping("/test")
-    public String test() {
-        return testService.test();
-    }
-
-    @GetMapping("/db")
+    @GetMapping("/api/v1/member/**")
     public List<Test> dbTest() {
         List<Test> tests = testRepository.findAll();
 

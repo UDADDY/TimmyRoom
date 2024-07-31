@@ -1,5 +1,5 @@
 server:
-    port: 8080
+    port: 8081
 
 spring:
     datasource:
@@ -9,7 +9,7 @@ spring:
         password: Enlwu5413!
     jpa:
         hibernate:
-            ddl-auto: validate
+            ddl-auto: update
         generate-ddl: false
         properties:
             hibernate:
@@ -28,3 +28,7 @@ springdoc:
         display-request-duration: true
     default-consumes-media-type: application/json
     default-produces-media-type: application/json
+
+jwt:
+    expiration_time: 86400000
+    secret: VlwEyVBsYt9V7zq57TejMnVUyzblYcfPQye08f7MGVA9XkHa
