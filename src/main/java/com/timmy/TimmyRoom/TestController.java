@@ -20,4 +20,9 @@ public class TestController {
 
         return tests;
     }
+
+    @GetMapping("/healthcheck")
+    public String healthcheck(){
+        return "OK";
+    }
 }
