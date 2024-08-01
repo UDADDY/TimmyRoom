@@ -60,6 +60,6 @@ public class SecurityConfig {
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() throws Exception{
-        return (web) -> web.ignoring().requestMatchers("/api/v1/auth/**");
+        return (web) -> web.ignoring().requestMatchers("/api/v1/auth/**", "/healthcheck");
     }
 }
