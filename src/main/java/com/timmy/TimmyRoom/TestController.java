@@ -21,6 +21,11 @@ public class TestController {
         return tests;
     }
 
+    @GetMapping("/tokenTest")
+    public String tokenTest(){
+        return "OK";
+    }
+
     @GetMapping("/healthcheck")
     public String healthcheck(){
         return "OK";
