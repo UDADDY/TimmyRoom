@@ -1,6 +1,5 @@
 package com.timmy.TimmyRoom.auth;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,7 +16,6 @@ import java.util.List;
 public class CustomUserDetailsService implements UserDetailsService {
 
     private final UserRepository userRepository;
-    private final ObjectMapper objectMapper;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
