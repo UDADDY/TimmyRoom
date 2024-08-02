@@ -50,6 +50,10 @@ public class SecurityConfig {
         );
 
         http
+                .authorizeHttpRequests(authorize ->
+                        authorize.anyRequest().authenticated());
+
+        http
                 .oauth2Login(httpSecurityOAuth2LoginConfigurer ->
                         httpSecurityOAuth2LoginConfigurer .userInfoEndpoint(userInfoEndpointConfig ->
                                 userInfoEndpointConfig.userService(customOAtuh2UserService)));

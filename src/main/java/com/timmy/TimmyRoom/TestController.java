@@ -18,6 +18,11 @@ public class TestController {
         return user.getUsername() + " OK";
     }
 
+    @GetMapping("/tokenBlockTest")
+    public String tokenBlockTest(@AuthenticationPrincipal User user){
+        return user.getUsername() + " OK";
+    }
+
     @GetMapping("/healthcheck")
     public String healthcheck(){
         return "OK";
