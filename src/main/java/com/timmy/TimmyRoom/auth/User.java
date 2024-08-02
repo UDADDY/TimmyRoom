@@ -18,4 +18,10 @@ public class User {
 
 //    @Enumerated(EnumType.STRING)
     private String role;
+
+    public User update(String name){
+        this.name = name;
+
+        return this;
+    }
 }

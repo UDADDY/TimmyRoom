@@ -4,9 +4,9 @@ server:
 spring:
     datasource:
         driver-class-name: com.mysql.cj.jdbc.Driver
-        url: jdbc:mysql://db-timmyroom.c5scqy22wuv0.ap-northeast-2.rds.amazonaws.com:3306/TimmyRoom
-        username: admin
-        password: Enlwu5413!
+        url: jdbc:mysql://${DATABASE_URL}:${DATABASE_PORT}/${DATABASE_DATABASE}
+        username: ${DATABASE_USERNAME}
+        password: ${DATABASE_PASSWORD}
     jpa:
         hibernate:
             ddl-auto: update
@@ -16,6 +16,8 @@ spring:
                 default_batch_fetch_size: 1000
                 show_sql: false
                 format_sql: true
+    profiles:
+        include: oauth
 
 #logging.level:
 #    org.hibernate.SQL: debug

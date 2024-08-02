@@ -1,5 +1,6 @@
 package com.timmy.TimmyRoom.config;
 
+import com.timmy.TimmyRoom.auth.CustomOAtuh2UserService;
 import com.timmy.TimmyRoom.auth.JwtFilter;
 import com.timmy.TimmyRoom.auth.handler.CustomAccessDeniedHandler;
 import com.timmy.TimmyRoom.auth.handler.CustomAuthenticationEntryPoint;
@@ -24,6 +25,7 @@ public class SecurityConfig {
     private final JwtUtil jwtUtil;
     private final CustomAccessDeniedHandler accessDeniedHandler;
     private final CustomAuthenticationEntryPoint authenticationEntryPoint;
+    private final CustomOAtuh2UserService customOAtuh2UserService;
 
     private static final String[] AUTH_WHITELIST = {
             "/api/v1/member/**", "/swagger-ui/**", "/api-docs", "/swagger-ui-custom.html",
@@ -46,6 +48,11 @@ public class SecurityConfig {
                 .authenticationEntryPoint(authenticationEntryPoint)
                 .accessDeniedHandler(accessDeniedHandler)
         );
+
+        http
+                .oauth2Login(httpSecurityOAuth2LoginConfigurer ->
+                        httpSecurityOAuth2LoginConfigurer .userInfoEndpoint(userInfoEndpointConfig ->
+                                userInfoEndpointConfig.userService(customOAtuh2UserService)));
 
         return http.build();
     }
