@@ -35,7 +35,7 @@ springdoc:
 
 jwt:
     expiration_time: 86400000
-    secret: VlwEyVBsYt9V7zq57TejMnVUyzblYcfPQye08f7MGVA9XkHa
+    secret: ${JWT_SECRET}
 
 cloud:
     aws:
