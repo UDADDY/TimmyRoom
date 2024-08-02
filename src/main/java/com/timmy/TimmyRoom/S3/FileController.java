@@ -1,7 +1,10 @@
 package com.timmy.TimmyRoom.S3;
 
 import com.timmy.TimmyRoom.entity.File;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -12,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/file")
+@Slf4j
 public class FileController {
 
     private final FileService fileService;
@@ -26,10 +30,12 @@ public class FileController {
         return ResponseEntity.status(HttpStatus.CREATED).body(file);
     }
 
-    @GetMapping("/download")
-    public ResponseEntity<String> downloadFile(){
-        return null;
+    @PostMapping("/download")
+    public ResponseEntity<?> downloadFile(
+            @AuthenticationPrincipal UserDetails userDetails,
+            @RequestParam("id") String id
+    ){
+        log.debug("download: ${}, email: ${}", id, userDetails.getUsername());
+        return fileService.downloadFileBlob(id);
     }
-
-
 }
