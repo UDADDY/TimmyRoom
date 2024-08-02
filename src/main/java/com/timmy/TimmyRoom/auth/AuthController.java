@@ -1,8 +1,10 @@
 package com.timmy.TimmyRoom.auth;
 
-import com.timmy.TimmyRoom.dto.LoginRequestDto;
-import com.timmy.TimmyRoom.dto.SignupRequestDto;
-import com.timmy.TimmyRoom.dto.TokenDto;
+import com.timmy.TimmyRoom.dto.ErrorResponseDTO;
+import com.timmy.TimmyRoom.dto.LoginRequestDTO;
+import com.timmy.TimmyRoom.dto.SignupRequestDTO;
+import com.timmy.TimmyRoom.dto.TokenDTO;
+import com.timmy.TimmyRoom.entity.User;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -31,20 +33,20 @@ public class AuthController {
     @Operation(summary = "로그인")
     @ApiResponses(
             value = {
-                    @ApiResponse(responseCode = "200", description = "로그인 성공", content = {@Content(schema = @Schema(implementation = TokenDto.class))}),
-                    @ApiResponse(responseCode = "404", description = "사용자 없음", content = {@Content(schema = @Schema(implementation = ErrorResponseDto.class))}),
+                    @ApiResponse(responseCode = "200", description = "로그인 성공", content = {@Content(schema = @Schema(implementation = TokenDTO.class))}),
+                    @ApiResponse(responseCode = "404", description = "사용자 없음", content = {@Content(schema = @Schema(implementation = ErrorResponseDTO.class))}),
             }
     )
-    public ResponseEntity<TokenDto> login(@Valid @RequestBody LoginRequestDto request){
+    public ResponseEntity<TokenDTO> login(@Valid @RequestBody LoginRequestDTO request){
         String accessToken = authService.login(request);
 
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("Authorization", "Bearer " + accessToken);
-        return new ResponseEntity<>(new TokenDto(accessToken), httpHeaders, HttpStatus.OK);
+        return new ResponseEntity<>(new TokenDTO(accessToken), httpHeaders, HttpStatus.OK);
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<String> signup(@Valid @RequestBody SignupRequestDto request){
+    public ResponseEntity<String> signup(@Valid @RequestBody SignupRequestDTO request){
         User user = authService.signup(request);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(user.getEmail());

@@ -1,4 +1,4 @@
-package com.timmy.TimmyRoom.S3;
+package com.timmy.TimmyRoom.service;
 
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.ObjectMetadata;
@@ -8,8 +8,6 @@ import com.amazonaws.util.IOUtils;
 import com.timmy.TimmyRoom.entity.File;
 import com.timmy.TimmyRoom.exception.FileNotFoundException;
 import com.timmy.TimmyRoom.repository.FileRepository;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;

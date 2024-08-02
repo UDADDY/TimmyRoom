@@ -4,7 +4,7 @@ import com.timmy.TimmyRoom.auth.CustomOAtuh2UserService;
 import com.timmy.TimmyRoom.auth.JwtFilter;
 import com.timmy.TimmyRoom.auth.handler.CustomAccessDeniedHandler;
 import com.timmy.TimmyRoom.auth.handler.CustomAuthenticationEntryPoint;
-import com.timmy.TimmyRoom.util.JwtUtil;
+import com.timmy.TimmyRoom.auth.JwtUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

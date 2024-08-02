@@ -1,5 +1,7 @@
 package com.timmy.TimmyRoom.auth;
 
+import com.timmy.TimmyRoom.entity.User;
+import com.timmy.TimmyRoom.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

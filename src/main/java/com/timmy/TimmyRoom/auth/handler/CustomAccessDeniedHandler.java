@@ -1,7 +1,7 @@
 package com.timmy.TimmyRoom.auth.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.timmy.TimmyRoom.auth.ErrorResponseDto;
+import com.timmy.TimmyRoom.dto.ErrorResponseDTO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -29,7 +29,7 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
                        AccessDeniedException accessDeniedException) throws IOException, ServletException {
         log.error("No Authorities", accessDeniedException);
 
-        ErrorResponseDto errorResponseDto = new ErrorResponseDto(HttpStatus.FORBIDDEN.value(), accessDeniedException.getMessage(), LocalDateTime.now());
+        ErrorResponseDTO errorResponseDto = new ErrorResponseDTO(HttpStatus.FORBIDDEN.value(), accessDeniedException.getMessage(), LocalDateTime.now());
 
         String responseBody = objectMapper.writeValueAsString(errorResponseDto);
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);

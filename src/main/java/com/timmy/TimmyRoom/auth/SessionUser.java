@@ -1,6 +1,6 @@
-package com.timmy.TimmyRoom.dto;
+package com.timmy.TimmyRoom.auth;
 
-import com.timmy.TimmyRoom.auth.User;
+import com.timmy.TimmyRoom.entity.User;
 import lombok.Getter;
 
 @Getter

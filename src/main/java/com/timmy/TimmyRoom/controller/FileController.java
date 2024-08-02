@@ -1,8 +1,7 @@
-package com.timmy.TimmyRoom.S3;
+package com.timmy.TimmyRoom.controller;
 
+import com.timmy.TimmyRoom.service.FileService;
 import com.timmy.TimmyRoom.entity.File;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

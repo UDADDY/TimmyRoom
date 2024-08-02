@@ -1,6 +1,5 @@
 package com.timmy.TimmyRoom.auth;
 
-import com.timmy.TimmyRoom.util.JwtUtil;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

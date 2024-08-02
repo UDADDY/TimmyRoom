@@ -1,4 +1,4 @@
-package com.timmy.TimmyRoom.auth;
+package com.timmy.TimmyRoom.entity;
 
 import jakarta.persistence.*;
 import lombok.*;

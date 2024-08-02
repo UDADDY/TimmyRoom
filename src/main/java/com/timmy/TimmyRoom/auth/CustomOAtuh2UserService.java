@@ -1,7 +1,7 @@
 package com.timmy.TimmyRoom.auth;
 
-import com.timmy.TimmyRoom.dto.OAuthAttributes;
-import com.timmy.TimmyRoom.dto.SessionUser;
+import com.timmy.TimmyRoom.entity.User;
+import com.timmy.TimmyRoom.repository.UserRepository;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

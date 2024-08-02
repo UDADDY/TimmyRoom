@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class LoginRequestDto {
+public class LoginRequestDTO {
 
     @Schema(description = "이메일", example = "gustmd5715@gmail.com")
     @NotNull

@@ -1,9 +1,10 @@
 package com.timmy.TimmyRoom.auth;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.timmy.TimmyRoom.dto.LoginRequestDto;
-import com.timmy.TimmyRoom.dto.SignupRequestDto;
-import com.timmy.TimmyRoom.util.JwtUtil;
+import com.timmy.TimmyRoom.dto.LoginRequestDTO;
+import com.timmy.TimmyRoom.dto.SignupRequestDTO;
+import com.timmy.TimmyRoom.entity.User;
+import com.timmy.TimmyRoom.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -25,7 +26,7 @@ public class AuthService {
     private final ObjectMapper objectMapper;
 
     @Transactional
-    public String login(LoginRequestDto dto){
+    public String login(LoginRequestDTO dto){
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(dto.getEmail(), dto.getPassword());
         Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
 
@@ -35,7 +36,7 @@ public class AuthService {
     }
 
     @Transactional
-    public User signup(SignupRequestDto request) {
+    public User signup(SignupRequestDTO request) {
         User user = User.builder()
                 .password(passwordEncoder.encode(request.getPassword()))
                 .email(request.getEmail())

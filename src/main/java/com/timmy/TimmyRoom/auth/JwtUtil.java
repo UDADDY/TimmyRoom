@@ -1,4 +1,4 @@
-package com.timmy.TimmyRoom.util;
+package com.timmy.TimmyRoom.auth;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
