@@ -11,6 +11,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/file")
@@ -36,5 +38,13 @@ public class FileController {
     ){
         log.debug("download: ${}, email: ${}", id, userDetails.getUsername());
         return fileService.downloadFileBlob(id);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<File>> findAllFileByEmail(@AuthenticationPrincipal UserDetails userDetails){
+        String email = userDetails.getUsername();
+        List<File> files = fileService.findAllFileByEmail(email);
+
+        return ResponseEntity.ok(files);
     }
 }

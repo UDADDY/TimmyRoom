@@ -22,6 +22,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -87,5 +88,9 @@ public class FileService {
 
     private String createFileName(String fileName){
         return UUID.randomUUID().toString().concat(fileName);
+    }
+
+    public List<File> findAllFileByEmail(String email) {
+        return fileRepository.findAllByUserEmail(email);
     }
 }
