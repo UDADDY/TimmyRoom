@@ -1,30 +1,29 @@
 package com.timmy.TimmyRoom.auth;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.timmy.TimmyRoom.dto.MemberDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-@Service
+import java.util.List;
+
+@Component("userDetailsService")
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
 
-    private final MemberRepository memberRepository;
+    private final UserRepository userRepository;
     private final ObjectMapper objectMapper;
 
     @Override
-    public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
-        Member member = memberRepository.findById(Long.parseLong(id))
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = userRepository.findById(email)
                 .orElseThrow(() -> new UsernameNotFoundException("해당하는 유저가 없습니다."));
 
-//        CustomUserInfoDto dto = modelMapper.map(member, CustomUserInfoDto.class);
-        MemberDto dto = objectMapper.convertValue(member, MemberDto.class);
-
-        return new CustomUserDetails(dto);
+        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), List.of(new SimpleGrantedAuthority("ROLE_USER")));
     }
 }

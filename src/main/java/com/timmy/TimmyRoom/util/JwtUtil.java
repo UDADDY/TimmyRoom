@@ -1,17 +1,20 @@
 package com.timmy.TimmyRoom.util;
 
-import com.timmy.TimmyRoom.dto.MemberDto;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.security.SecurityException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
-import java.time.ZonedDateTime;
 import java.util.Date;
+import java.util.List;
 
 @Slf4j
 @Component
@@ -29,34 +32,40 @@ public class JwtUtil {
         this.accessTokenExpTime = accessTokenExpTime;
     }
 
-    public String createAccessToken(MemberDto member){
-        return createToken(member, accessTokenExpTime);
-    }
-
-    private String createToken(MemberDto member, long expireTime){
+    public String createAccessToken(Authentication authentication){
         Claims claims = Jwts.claims();
-        claims.put("memberId", member.getId());
-        claims.put("email", member.getEmail());
-        claims.put("role", member.getRole());
+        claims.put("id", authentication.getName());
 
-        ZonedDateTime now = ZonedDateTime.now();
-        ZonedDateTime tokenValidity = now.plusSeconds(expireTime);
+        long now = (new Date()).getTime();
+        Date tokenValidity = new Date(now + accessTokenExpTime);
 
         return Jwts.builder()
+                .setSubject(authentication.getName())
                 .setClaims(claims)
-                .setIssuedAt(Date.from(now.toInstant()))
-                .setExpiration(Date.from(tokenValidity.toInstant()))
+                .setExpiration(tokenValidity)
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
     }
 
-    public Long getUserId(String token){
-        return parseClaims(token).get("memberId", Long.class);
+    // 토큰으로 클레임을 만들어 유저 객체를 생성 후 authentication 객체 리턴
+    public Authentication getAuthentication(String token){
+        Claims claims = Jwts
+                .parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+
+        log.info("클레임 ID: {}", claims.get("id", String.class));
+        User principal = new User(claims.get("id", String.class), "", List.of(new SimpleGrantedAuthority("ROLE_USER")));
+
+        return new UsernamePasswordAuthenticationToken(principal, token, List.of(new SimpleGrantedAuthority("ROLE_USER")));
     }
 
     public boolean validateToken(String token){
         try {
-            Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJwt(token);
+            Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
+            return true;
         } catch (SecurityException | MalformedJwtException e){
             log.info("Invalid JWT Token", e);
         } catch (ExpiredJwtException e){
@@ -68,13 +77,5 @@ public class JwtUtil {
         }
 
         return false;
-    }
-
-    public Claims parseClaims(String accessToken){
-        try{
-            return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJwt(accessToken).getBody();
-        } catch (ExpiredJwtException e){
-            return e.getClaims();
-        }
     }
 }

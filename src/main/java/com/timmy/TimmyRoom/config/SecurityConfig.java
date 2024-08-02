@@ -1,7 +1,6 @@
 package com.timmy.TimmyRoom.config;
 
-import com.timmy.TimmyRoom.auth.CustomUserDetailsService;
-import com.timmy.TimmyRoom.auth.JwtAuthFilter;
+import com.timmy.TimmyRoom.auth.JwtFilter;
 import com.timmy.TimmyRoom.auth.handler.CustomAccessDeniedHandler;
 import com.timmy.TimmyRoom.auth.handler.CustomAuthenticationEntryPoint;
 import com.timmy.TimmyRoom.util.JwtUtil;
@@ -10,7 +9,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -23,7 +21,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @AllArgsConstructor
 public class SecurityConfig {
 
-    private final CustomUserDetailsService customUserDetailsService;
     private final JwtUtil jwtUtil;
     private final CustomAccessDeniedHandler accessDeniedHandler;
     private final CustomAuthenticationEntryPoint authenticationEntryPoint;
@@ -43,16 +40,11 @@ public class SecurityConfig {
         http.formLogin(AbstractHttpConfigurer::disable);
         http.httpBasic(AbstractHttpConfigurer::disable);
 
-        http.addFilterBefore(new JwtAuthFilter(customUserDetailsService, jwtUtil), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(new JwtFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class);
 
         http.exceptionHandling((exceptionHandling) -> exceptionHandling
                 .authenticationEntryPoint(authenticationEntryPoint)
                 .accessDeniedHandler(accessDeniedHandler)
-        );
-
-        http.authorizeHttpRequests(authorize -> authorize
-                .requestMatchers(AUTH_WHITELIST).permitAll()
-                .anyRequest().authenticated()
         );
 
         return http.build();
