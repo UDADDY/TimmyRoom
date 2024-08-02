@@ -6,6 +6,7 @@ import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import com.amazonaws.util.IOUtils;
 import com.timmy.TimmyRoom.entity.File;
+import com.timmy.TimmyRoom.entity.User;
 import com.timmy.TimmyRoom.exception.FileNotFoundException;
 import com.timmy.TimmyRoom.repository.FileRepository;
 import lombok.RequiredArgsConstructor;
@@ -28,8 +29,9 @@ import java.util.UUID;
 @Slf4j
 public class FileService {
 
-    private final FileRepository fileRepository;
     private final AmazonS3Client amazonS3Client;
+    private final FileRepository fileRepository;
+    private final UserService userService;
 
     @Value("${cloud.aws.s3.bucket}")
     private String bucket;
@@ -37,6 +39,7 @@ public class FileService {
     public File uploadFile(MultipartFile multipartFile, String email) {
         String fileName = createFileName(multipartFile.getOriginalFilename());
         String key = email + "/" + fileName;
+        User user = userService.findUserByEmail(email);
 
         ObjectMetadata metadata = new ObjectMetadata();
         metadata.setContentType(multipartFile.getContentType());
@@ -54,6 +57,7 @@ public class FileService {
                 .contentType(multipartFile.getContentType())
                 .size(multipartFile.getSize())
                 .name(multipartFile.getOriginalFilename())
+                .user(user)
                 .build();
 
         return fileRepository.save(file);
