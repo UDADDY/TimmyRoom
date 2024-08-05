@@ -36,8 +36,8 @@ dependencies {
 	implementation 'io.jsonwebtoken:jjwt-impl:0.11.5'
 	implementation 'io.jsonwebtoken:jjwt-jackson:0.11.5'
 
-	// ModelMapper
-	implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.4.2'
+	// Object Mapper
+	implementation 'com.fasterxml.jackson.core:jackson-core:2.14.0'
 
 	// security
 	implementation 'org.springframework.boot:spring-boot-starter-security'
@@ -45,7 +45,7 @@ dependencies {
 	// validation
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 
-	// websocket
+	// websocket for chat
 	implementation 'org.springframework.boot:spring-boot-starter-websocket'
 
 	// swagger

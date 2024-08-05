@@ -1,4 +1,4 @@
-package com.timmy.TimmyRoom.auth.handler;
+package com.timmy.TimmyRoom.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.timmy.TimmyRoom.dto.ErrorResponseDTO;

@@ -2,8 +2,8 @@ package com.timmy.TimmyRoom.config;
 
 import com.timmy.TimmyRoom.auth.CustomOAtuh2UserService;
 import com.timmy.TimmyRoom.auth.JwtFilter;
-import com.timmy.TimmyRoom.auth.handler.CustomAccessDeniedHandler;
-import com.timmy.TimmyRoom.auth.handler.CustomAuthenticationEntryPoint;
+import com.timmy.TimmyRoom.handler.CustomAccessDeniedHandler;
+import com.timmy.TimmyRoom.handler.CustomAuthenticationEntryPoint;
 import com.timmy.TimmyRoom.auth.JwtUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -29,7 +29,8 @@ public class SecurityConfig {
 
     private static final String[] AUTH_WHITELIST = {
             "/api/v1/member/**", "/swagger-ui/**", "/api-docs", "/swagger-ui-custom.html",
-            "/v3/api-docs/**", "/api-docs/**", "/swagger-ui.html", "/api/v1/auth/**", "/healthcheck"
+            "/v3/api-docs/**", "/api-docs/**", "/swagger-ui.html", "/api/v1/auth/**", "/healthcheck",
+            "/ws/chat/**"
     };
 
     @Bean
@@ -63,6 +64,6 @@ public class SecurityConfig {
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() throws Exception{
-        return (web) -> web.ignoring().requestMatchers("/api/v1/auth/**", "/healthcheck");
+        return (web) -> web.ignoring().requestMatchers(AUTH_WHITELIST);
     }
 }
