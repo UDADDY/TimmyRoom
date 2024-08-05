@@ -59,6 +59,10 @@ dependencies {
 
 	// aws
 	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
+
+	// Redis
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis', version: '3.3.2'
+
 }
 
 tasks.named('test') {
