@@ -15,7 +15,10 @@ public enum ErrorCode {
     USER_NOT_FOUND("U02", "User is not Found.", HttpStatus.BAD_REQUEST.value()),
 
     // Token
-    INVALID_TOKEN("T01", "Token is Invalid.", HttpStatus.UNAUTHORIZED.value());
+    INVALID_TOKEN("T01", "Token is Invalid.", HttpStatus.UNAUTHORIZED.value()),
+
+    // File
+    FILE_UPLOAD_EXCEPTION("F01", "File Upload is Failed.", HttpStatus.INTERNAL_SERVER_ERROR.value());
 
     private String code;
     private String message;

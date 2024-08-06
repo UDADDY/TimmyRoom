@@ -8,6 +8,7 @@ import com.amazonaws.util.IOUtils;
 import com.timmy.TimmyRoom.entity.File;
 import com.timmy.TimmyRoom.entity.User;
 import com.timmy.TimmyRoom.excpetion.FileNotFoundException;
+import com.timmy.TimmyRoom.excpetion.FileUploadException;
 import com.timmy.TimmyRoom.repository.FileRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +19,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -50,7 +50,7 @@ public class FileService {
         try(InputStream inputStream = multipartFile.getInputStream()){
             amazonS3Client.putObject(bucket, key, inputStream, metadata);
         } catch (IOException e){
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "파일 업로드 실패");
+            throw new FileUploadException();
         }
 
         File file = File.builder()
