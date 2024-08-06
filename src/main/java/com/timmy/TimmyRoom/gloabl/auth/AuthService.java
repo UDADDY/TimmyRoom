@@ -37,6 +37,7 @@ public class AuthService {
 
     @Transactional
     public User signup(SignupRequestDTO request) {
+        // To Do: 유저 중복 검사
         User user = User.builder()
                 .password(passwordEncoder.encode(request.getPassword()))
                 .email(request.getEmail())

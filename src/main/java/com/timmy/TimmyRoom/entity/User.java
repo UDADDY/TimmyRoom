@@ -1,5 +1,6 @@
 package com.timmy.TimmyRoom.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -22,6 +23,7 @@ public class User {
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_email")
+    @JsonIgnore
     private List<File> files;
 
     public User update(String name){

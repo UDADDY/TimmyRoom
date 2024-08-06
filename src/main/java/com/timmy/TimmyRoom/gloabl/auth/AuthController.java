@@ -46,9 +46,16 @@ public class AuthController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<String> signup(@Valid @RequestBody SignupRequestDTO request){
+    @Operation(summary = "회원가입")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(responseCode = "201", description = "회원가입 성공", content = {@Content(schema = @Schema(implementation = User.class))}),
+                    @ApiResponse(responseCode = "409", description = "유저 아이디 중복", content = {@Content(schema = @Schema(implementation = ErrorResponse.class))}),
+            }
+    )
+    public ResponseEntity<User> signup(@Valid @RequestBody SignupRequestDTO request){
         User user = authService.signup(request);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(user.getEmail());
+        return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
 }
