@@ -1,4 +1,4 @@
-package com.timmy.TimmyRoom.auth;
+package com.timmy.TimmyRoom.gloabl.auth;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

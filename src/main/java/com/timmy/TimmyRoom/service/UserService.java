@@ -1,7 +1,7 @@
 package com.timmy.TimmyRoom.service;
 
 import com.timmy.TimmyRoom.entity.User;
-import com.timmy.TimmyRoom.exception.UserNotFoundException;
+import com.timmy.TimmyRoom.gloabl.error.exception.UserNotFoundException;
 import com.timmy.TimmyRoom.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

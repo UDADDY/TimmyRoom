@@ -7,7 +7,7 @@ import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import com.amazonaws.util.IOUtils;
 import com.timmy.TimmyRoom.entity.File;
 import com.timmy.TimmyRoom.entity.User;
-import com.timmy.TimmyRoom.exception.FileNotFoundException;
+import com.timmy.TimmyRoom.excpetion.FileNotFoundException;
 import com.timmy.TimmyRoom.repository.FileRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

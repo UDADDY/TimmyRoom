@@ -1,6 +1,6 @@
 package com.timmy.TimmyRoom.controller;
 
-import com.timmy.TimmyRoom.dto.RedisEntityDTO;
+import com.timmy.TimmyRoom.dto.request.RedisEntityRequestDTO;
 import com.timmy.TimmyRoom.entity.RedisEntity;
 import com.timmy.TimmyRoom.repository.RedisEntityRepository;
 import lombok.RequiredArgsConstructor;
@@ -24,10 +24,10 @@ public class RedisTestController {
     }
 
     @PostMapping
-    public ResponseEntity<?> setValue(@RequestBody RedisEntityDTO redisEntityDTO){
+    public ResponseEntity<?> setValue(@RequestBody RedisEntityRequestDTO redisEntityRequestDTO){
         RedisEntity redisEntity = RedisEntity.builder()
-                .id(redisEntityDTO.getId())
-                .name(redisEntityDTO.getName())
+                .id(redisEntityRequestDTO.getId())
+                .name(redisEntityRequestDTO.getName())
                 .build();
 
         RedisEntity saved = redisEntityRepository.save(redisEntity);

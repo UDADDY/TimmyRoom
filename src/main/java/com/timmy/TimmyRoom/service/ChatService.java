@@ -1,7 +1,7 @@
 package com.timmy.TimmyRoom.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.timmy.TimmyRoom.dto.ChatRoom;
+import com.timmy.TimmyRoom.entity.ChatRoom;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

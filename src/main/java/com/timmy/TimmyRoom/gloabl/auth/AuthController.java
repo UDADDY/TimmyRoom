@@ -1,9 +1,9 @@
-package com.timmy.TimmyRoom.auth;
+package com.timmy.TimmyRoom.gloabl.auth;
 
 import com.timmy.TimmyRoom.dto.ErrorResponseDTO;
-import com.timmy.TimmyRoom.dto.LoginRequestDTO;
-import com.timmy.TimmyRoom.dto.SignupRequestDTO;
-import com.timmy.TimmyRoom.dto.TokenDTO;
+import com.timmy.TimmyRoom.dto.request.LoginRequestDTO;
+import com.timmy.TimmyRoom.dto.request.SignupRequestDTO;
+import com.timmy.TimmyRoom.dto.response.TokenResponseDTO;
 import com.timmy.TimmyRoom.entity.User;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -33,16 +33,16 @@ public class AuthController {
     @Operation(summary = "로그인")
     @ApiResponses(
             value = {
-                    @ApiResponse(responseCode = "200", description = "로그인 성공", content = {@Content(schema = @Schema(implementation = TokenDTO.class))}),
+                    @ApiResponse(responseCode = "200", description = "로그인 성공", content = {@Content(schema = @Schema(implementation = TokenResponseDTO.class))}),
                     @ApiResponse(responseCode = "404", description = "사용자 없음", content = {@Content(schema = @Schema(implementation = ErrorResponseDTO.class))}),
             }
     )
-    public ResponseEntity<TokenDTO> login(@Valid @RequestBody LoginRequestDTO request){
+    public ResponseEntity<TokenResponseDTO> login(@Valid @RequestBody LoginRequestDTO request){
         String accessToken = authService.login(request);
 
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("Authorization", "Bearer " + accessToken);
-        return new ResponseEntity<>(new TokenDTO(accessToken), httpHeaders, HttpStatus.OK);
+        return new ResponseEntity<>(new TokenResponseDTO(accessToken), httpHeaders, HttpStatus.OK);
     }
 
     @PostMapping("/signup")

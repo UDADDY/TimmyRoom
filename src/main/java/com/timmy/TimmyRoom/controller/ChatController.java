@@ -1,7 +1,7 @@
 package com.timmy.TimmyRoom.controller;
 
-import com.timmy.TimmyRoom.dto.ChatRoom;
-import com.timmy.TimmyRoom.dto.ChatRoomCreateRequestDTO;
+import com.timmy.TimmyRoom.entity.ChatRoom;
+import com.timmy.TimmyRoom.dto.request.ChatRoomCreateRequestDTO;
 import com.timmy.TimmyRoom.service.ChatService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

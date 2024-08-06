@@ -1,5 +1,6 @@
 package com.timmy.TimmyRoom.dto;
 
+import com.timmy.TimmyRoom.entity.MessageType;
 import lombok.Data;
 
 @Data

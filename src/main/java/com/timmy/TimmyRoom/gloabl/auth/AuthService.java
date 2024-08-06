@@ -1,8 +1,8 @@
-package com.timmy.TimmyRoom.auth;
+package com.timmy.TimmyRoom.gloabl.auth;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.timmy.TimmyRoom.dto.LoginRequestDTO;
-import com.timmy.TimmyRoom.dto.SignupRequestDTO;
+import com.timmy.TimmyRoom.dto.request.LoginRequestDTO;
+import com.timmy.TimmyRoom.dto.request.SignupRequestDTO;
 import com.timmy.TimmyRoom.entity.User;
 import com.timmy.TimmyRoom.repository.UserRepository;
 import lombok.RequiredArgsConstructor;

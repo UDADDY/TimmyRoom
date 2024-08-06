@@ -1,4 +1,4 @@
-package com.timmy.TimmyRoom.auth;
+package com.timmy.TimmyRoom.gloabl.auth;
 
 import com.timmy.TimmyRoom.entity.User;
 import com.timmy.TimmyRoom.repository.UserRepository;

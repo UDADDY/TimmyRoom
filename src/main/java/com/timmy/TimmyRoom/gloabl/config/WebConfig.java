@@ -1,4 +1,4 @@
-package com.timmy.TimmyRoom.config;
+package com.timmy.TimmyRoom.gloabl.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -11,7 +11,7 @@ public class WebConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
                 .allowedOriginPatterns("*")
-                .allowedMethods("GET", "POST", "UPDATE", "DELETE", "PUT")
+                .allowedMethods("GET", "POST", "UPDATE", "DELETE", "PUT", "HEAD", "PATCH", "OPTIONS")
                 .allowCredentials(true);
     }
 }

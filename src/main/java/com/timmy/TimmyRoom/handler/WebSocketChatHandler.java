@@ -2,8 +2,8 @@ package com.timmy.TimmyRoom.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.timmy.TimmyRoom.dto.ChatMessageDTO;
-import com.timmy.TimmyRoom.dto.ChatRoom;
-import com.timmy.TimmyRoom.dto.MessageType;
+import com.timmy.TimmyRoom.entity.ChatRoom;
+import com.timmy.TimmyRoom.entity.MessageType;
 import com.timmy.TimmyRoom.service.ChatService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

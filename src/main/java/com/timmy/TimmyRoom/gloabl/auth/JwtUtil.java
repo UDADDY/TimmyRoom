@@ -1,4 +1,4 @@
-package com.timmy.TimmyRoom.auth;
+package com.timmy.TimmyRoom.gloabl.auth;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;

@@ -1,4 +1,4 @@
-package com.timmy.TimmyRoom.dto;
+package com.timmy.TimmyRoom.entity;
 
 import lombok.Builder;
 import lombok.Getter;
