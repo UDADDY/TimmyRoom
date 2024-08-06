@@ -53,6 +53,21 @@ public class RedisTestController {
     }
 
     @PostMapping
+    @Operation(summary = "레디스 엔티티 생성")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(
+                            description = "생성 성공",
+                            responseCode = "201",
+                            content = {@Content(schema = @Schema(implementation = RedisEntity.class))}
+                    ),
+                    @ApiResponse(
+                            description = "사용자 인증 실패",
+                            responseCode = "401",
+                            content = {@Content(schema = @Schema(implementation = ErrorResponse.class))}
+                    )
+            }
+    )
     public ResponseEntity<?> setValue(@RequestBody RedisEntityRequestDTO redisEntityRequestDTO){
         RedisEntity redisEntity = RedisEntity.builder()
                 .id(redisEntityRequestDTO.getId())
@@ -61,7 +76,7 @@ public class RedisTestController {
 
         RedisEntity saved = redisEntityRepository.save(redisEntity);
 
-        return ResponseEntity.ok(saved);
+        return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
 
     @DeleteMapping("/{id}")
