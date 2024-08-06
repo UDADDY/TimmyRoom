@@ -15,6 +15,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -60,7 +61,7 @@ public class ChatController {
             value = {
                     @ApiResponse(
                             description = "생성 성공",
-                            responseCode = "200",
+                            responseCode = "201",
                             content = {@Content(schema = @Schema(implementation = ChatRoomDTO.class))}
                     ),
                     @ApiResponse(
@@ -82,7 +83,7 @@ public class ChatController {
         ChatRoom chatRoom = chatService.createChatRoom(chatRoomCreateRequestDTO.getChatRoomName(), userDetails.getUsername());
         ChatRoomDTO chatRoomDTO = ChatRoomDTO.fromEntity(chatRoom);
 
-        return ResponseEntity.ok(chatRoomDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(chatRoomDTO);
     }
 
     @GetMapping("/{roomId}")
