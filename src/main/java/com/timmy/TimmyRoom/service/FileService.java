@@ -65,7 +65,7 @@ public class FileService {
     }
 
     public ResponseEntity<?> downloadFileBlob(String id){
-        File file = fileRepository.findById(id).orElseThrow(() -> new FileNotFoundException("파일이 없습니다."));
+        File file = fileRepository.findById(id).orElseThrow(() -> new FileNotFoundException());
         String downloadFileName = file.getName();
 
         try (S3Object s3Object = amazonS3Client.getObject(bucket, file.getId()); S3ObjectInputStream objectInputStream = s3Object.getObjectContent()){
