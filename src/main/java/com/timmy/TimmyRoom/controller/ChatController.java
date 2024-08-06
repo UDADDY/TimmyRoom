@@ -55,6 +55,26 @@ public class ChatController {
     }
 
     @PostMapping
+    @Operation(summary = "채팅방 생성")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(
+                            description = "생성 성공",
+                            responseCode = "200",
+                            content = {@Content(schema = @Schema(implementation = ChatRoomDTO.class))}
+                    ),
+                    @ApiResponse(
+                            description = "사용자 인증 실패",
+                            responseCode = "401",
+                            content = {@Content(schema = @Schema(implementation = ErrorResponse.class))}
+                    ),
+                    @ApiResponse(
+                            description = "채팅방 이름 중복",
+                            responseCode = "409",
+                            content = {@Content(schema = @Schema(implementation = ErrorResponse.class))}
+                    )
+            }
+    )
     public ResponseEntity<?> createChatRoom(
             @AuthenticationPrincipal UserDetails userDetails,
             @RequestBody @Valid ChatRoomCreateRequestDTO chatRoomCreateRequestDTO
