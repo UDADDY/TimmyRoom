@@ -1,4 +1,4 @@
-package com.timmy.TimmyRoom.exception;
+package com.timmy.TimmyRoom.excpetion;
 
 public class FileNotFoundException extends RuntimeException {
     public FileNotFoundException(String message) {
