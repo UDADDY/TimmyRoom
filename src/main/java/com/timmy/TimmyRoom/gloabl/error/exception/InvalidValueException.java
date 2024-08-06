@@ -1,7 +1,4 @@
-package com.timmy.TimmyRoom.excpetion;
-
-import com.timmy.TimmyRoom.gloabl.error.exception.BusinessException;
-import com.timmy.TimmyRoom.gloabl.error.exception.ErrorCode;
+package com.timmy.TimmyRoom.gloabl.error.exception;
 
 public class InvalidValueException extends BusinessException {
 
