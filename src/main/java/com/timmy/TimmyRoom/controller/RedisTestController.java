@@ -80,6 +80,20 @@ public class RedisTestController {
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary = "레디스 엔티티 삭제")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(
+                            description = "삭제 성공",
+                            responseCode = "204"
+                    ),
+                    @ApiResponse(
+                            description = "사용자 인증 실패",
+                            responseCode = "401",
+                            content = {@Content(schema = @Schema(implementation = ErrorResponse.class))}
+                    )
+            }
+    )
     public ResponseEntity<?> deleteRow(@PathVariable Long id){
         redisEntityRepository.deleteById(id);
 
