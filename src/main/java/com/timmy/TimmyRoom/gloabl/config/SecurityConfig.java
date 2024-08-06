@@ -3,6 +3,8 @@ package com.timmy.TimmyRoom.gloabl.config;
 import com.timmy.TimmyRoom.gloabl.auth.CustomOAtuh2UserService;
 import com.timmy.TimmyRoom.gloabl.auth.JwtFilter;
 import com.timmy.TimmyRoom.gloabl.auth.JwtUtil;
+import com.timmy.TimmyRoom.handler.JwtAccessDeniedHandler;
+import com.timmy.TimmyRoom.handler.JwtAuthenticationEntryPoint;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,10 +27,9 @@ import java.util.List;
 @EnableWebSecurity
 @AllArgsConstructor
 public class SecurityConfig {
-
-    private final JwtUtil jwtUtil;
-//    private final JwtAccessDeniedHandler accessDeniedHandler;
-//    private final JwtAuthenticationEntryPoint authenticationEntryPoint;
+    private final JwtFilter jwtFilter;
+    private final JwtAccessDeniedHandler accessDeniedHandler;
+    private final JwtAuthenticationEntryPoint authenticationEntryPoint;
     private final CustomOAtuh2UserService customOAtuh2UserService;
 
     private static final String[] AUTH_WHITELIST = {
@@ -49,10 +50,10 @@ public class SecurityConfig {
         http.httpBasic(AbstractHttpConfigurer::disable);
         http.headers(header -> header.frameOptions(option -> option.disable()));
 
-//        http.exceptionHandling((exceptionHandling) -> exceptionHandling
-//                .authenticationEntryPoint(authenticationEntryPoint)
-//                .accessDeniedHandler(accessDeniedHandler)
-//        );
+        http.exceptionHandling( handler -> handler
+                .authenticationEntryPoint(authenticationEntryPoint)
+                .accessDeniedHandler(accessDeniedHandler)
+        );
 
         http.authorizeHttpRequests(authorize ->
                 authorize.requestMatchers(CorsUtils::isPreFlightRequest).permitAll());
@@ -65,7 +66,7 @@ public class SecurityConfig {
                         httpSecurityOAuth2LoginConfigurer .userInfoEndpoint(userInfoEndpointConfig ->
                                 userInfoEndpointConfig.userService(customOAtuh2UserService)));
 
-        http.addFilterBefore(new JwtFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
