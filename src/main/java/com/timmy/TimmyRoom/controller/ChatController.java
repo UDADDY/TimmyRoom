@@ -66,8 +66,28 @@ public class ChatController {
     }
 
     @GetMapping("/{roomId}")
-    public ResponseEntity<?> getChatRoom(@PathVariable("roomId") String roomId){
-        ChatRoom chatRoom = chatService.findRoomById(roomId);
+    @Operation(summary = "채팅방 ID로 조회")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(
+                            description = "조회 성공",
+                            responseCode = "200",
+                            content = {@Content(schema = @Schema(implementation = ChatRoomDTO.class))}
+                    ),
+                    @ApiResponse(
+                            description = "사용자 인증 실패",
+                            responseCode = "401",
+                            content = {@Content(schema = @Schema(implementation = ErrorResponse.class))}
+                    ),
+                    @ApiResponse(
+                            description = "채팅방 미존재",
+                            responseCode = "404",
+                            content = {@Content(schema = @Schema(implementation = ErrorResponse.class))}
+                    )
+            }
+    )
+    public ResponseEntity<?> getChatRoom(@PathVariable("chatRoomId") String chatRoomId){
+        ChatRoom chatRoom = chatService.findRoomById(chatRoomId);
         ChatRoomDTO chatRoomDTO = ChatRoomDTO.fromEntity(chatRoom);
 
         return ResponseEntity.ok(chatRoomDTO);
