@@ -26,8 +26,8 @@ public class ChatService {
         return new ArrayList<>(chatRooms.values());
     }
 
-    public ChatRoom findRoomById(String roomId){
-        return chatRooms.get(roomId);
+    public ChatRoom findRoomById(String chatRoomId){
+        return chatRooms.get(chatRoomId);
     }
 
     public ChatRoom createChatRoom(String chatRoomName, String host){
