@@ -1,10 +1,10 @@
 package com.timmy.TimmyRoom.gloabl.auth;
 
-import com.timmy.TimmyRoom.dto.ErrorResponseDTO;
 import com.timmy.TimmyRoom.dto.request.LoginRequestDTO;
 import com.timmy.TimmyRoom.dto.request.SignupRequestDTO;
 import com.timmy.TimmyRoom.dto.response.TokenResponseDTO;
 import com.timmy.TimmyRoom.entity.User;
+import com.timmy.TimmyRoom.gloabl.error.ErrorResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -22,9 +22,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/api/v1/auth")
 @Tag(name = "사용자 인증")
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/auth")
 public class AuthController {
 
     private final AuthService authService;
@@ -34,7 +34,7 @@ public class AuthController {
     @ApiResponses(
             value = {
                     @ApiResponse(responseCode = "200", description = "로그인 성공", content = {@Content(schema = @Schema(implementation = TokenResponseDTO.class))}),
-                    @ApiResponse(responseCode = "404", description = "사용자 없음", content = {@Content(schema = @Schema(implementation = ErrorResponseDTO.class))}),
+                    @ApiResponse(responseCode = "404", description = "사용자 없음", content = {@Content(schema = @Schema(implementation = ErrorResponse.class))}),
             }
     )
     public ResponseEntity<TokenResponseDTO> login(@Valid @RequestBody LoginRequestDTO request){
