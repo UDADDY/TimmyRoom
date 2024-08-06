@@ -1,9 +1,11 @@
 package com.timmy.TimmyRoom.controller;
 
+import com.timmy.TimmyRoom.dto.ChatRoomDTO;
 import com.timmy.TimmyRoom.gloabl.error.ErrorResponse;
 import com.timmy.TimmyRoom.service.FileService;
 import com.timmy.TimmyRoom.entity.File;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -89,6 +91,21 @@ public class FileController {
     }
 
     @GetMapping
+    @Operation(summary = "내 파일 조회")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(
+                            description = "조회 성공",
+                            responseCode = "200",
+                            content = {@Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = File.class)))}
+                    ),
+                    @ApiResponse(
+                            description = "사용자 인증 실패",
+                            responseCode = "401",
+                            content = {@Content(schema = @Schema(implementation = ErrorResponse.class))}
+                    )
+            }
+    )
     public ResponseEntity<List<File>> findAllFileByEmail(@AuthenticationPrincipal UserDetails userDetails){
         String email = userDetails.getUsername();
         List<File> files = fileService.findAllFileByEmail(email);
