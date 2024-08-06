@@ -11,11 +11,13 @@ import java.util.Set;
 public class ChatRoom {
     private String roomId;
     private String name;
+    private String host;
     private Set<WebSocketSession> sessions = new HashSet<>();
 
     @Builder
-    public ChatRoom(String roomId, String name) {
+    public ChatRoom(String roomId, String name, String host) {
         this.roomId = roomId;
         this.name = name;
+        this.host = host;
     }
 }
