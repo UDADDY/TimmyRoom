@@ -1,6 +1,5 @@
 package com.timmy.TimmyRoom.controller;
 
-import com.timmy.TimmyRoom.dto.ChatRoomDTO;
 import com.timmy.TimmyRoom.gloabl.error.ErrorResponse;
 import com.timmy.TimmyRoom.service.FileService;
 import com.timmy.TimmyRoom.entity.File;

@@ -19,7 +19,10 @@ public enum ErrorCode {
 
     // File
     FILE_UPLOAD_FAIL("F01", "File Upload is Failed.", HttpStatus.INTERNAL_SERVER_ERROR.value()),
-    FILE_DOWNLOAD_FAIl("F02", "File Download is Failed.", HttpStatus.INTERNAL_SERVER_ERROR.value());
+    FILE_DOWNLOAD_FAIl("F02", "File Download is Failed.", HttpStatus.INTERNAL_SERVER_ERROR.value()),
+
+    // Redis Entity
+    REDIS_ENTITY_NOT_FOUND("R01", "Redis Entity is not Found.", HttpStatus.NOT_FOUND.value());
 
     private String code;
     private String message;
