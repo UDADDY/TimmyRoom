@@ -29,7 +29,7 @@ public class FileController {
 
     private final FileService fileService;
 
-    @PostMapping("/upload")
+    @PostMapping
     @Operation(summary = "파일 업로드")
     @ApiResponses(
             value = {
@@ -44,7 +44,7 @@ public class FileController {
                             content = {@Content(schema = @Schema(implementation = ErrorResponse.class))}
                     ),
                     @ApiResponse(
-                            description = "S3 업로드 실패",
+                            description = "업로드 실패",
                             responseCode = "500",
                             content = {@Content(schema = @Schema(implementation = ErrorResponse.class))}
                     )
@@ -59,13 +59,33 @@ public class FileController {
         return ResponseEntity.status(HttpStatus.CREATED).body(file);
     }
 
-    @PostMapping("/download")
+    @GetMapping("/{fileId}")
+    @Operation(summary = "파일 다운로드")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(
+                            description = "다운로드 성공",
+                            responseCode = "200",
+                            content = {@Content(schema = @Schema(implementation = File.class))}
+                    ),
+                    @ApiResponse(
+                            description = "사용자 인증 실패",
+                            responseCode = "401",
+                            content = {@Content(schema = @Schema(implementation = ErrorResponse.class))}
+                    ),
+                    @ApiResponse(
+                            description = "다운로드 실패",
+                            responseCode = "500",
+                            content = {@Content(schema = @Schema(implementation = ErrorResponse.class))}
+                    )
+            }
+    )
     public ResponseEntity<?> downloadFile(
             @AuthenticationPrincipal UserDetails userDetails,
-            @RequestParam("id") String id
+            @PathVariable("fileId") String fileId
     ){
-        log.debug("download: ${}, email: ${}", id, userDetails.getUsername());
-        return fileService.downloadFileBlob(id);
+        log.debug("download: ${}, email: ${}", fileId, userDetails.getUsername());
+        return fileService.downloadFileBlob(fileId);
     }
 
     @GetMapping

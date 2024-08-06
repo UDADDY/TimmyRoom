@@ -18,7 +18,8 @@ public enum ErrorCode {
     INVALID_TOKEN("T01", "Token is Invalid.", HttpStatus.UNAUTHORIZED.value()),
 
     // File
-    FILE_UPLOAD_EXCEPTION("F01", "File Upload is Failed.", HttpStatus.INTERNAL_SERVER_ERROR.value());
+    FILE_UPLOAD_FAIL("F01", "File Upload is Failed.", HttpStatus.INTERNAL_SERVER_ERROR.value()),
+    FILE_DOWNLOAD_FAIl("F02", "File Download is Failed.", HttpStatus.INTERNAL_SERVER_ERROR.value());
 
     private String code;
     private String message;

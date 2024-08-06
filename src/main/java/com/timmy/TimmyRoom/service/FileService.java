@@ -7,6 +7,7 @@ import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import com.amazonaws.util.IOUtils;
 import com.timmy.TimmyRoom.entity.File;
 import com.timmy.TimmyRoom.entity.User;
+import com.timmy.TimmyRoom.excpetion.FileDownloadException;
 import com.timmy.TimmyRoom.excpetion.FileNotFoundException;
 import com.timmy.TimmyRoom.excpetion.FileUploadException;
 import com.timmy.TimmyRoom.repository.FileRepository;
@@ -82,7 +83,9 @@ public class FileService {
             return new ResponseEntity<>(bytes, headers, HttpStatus.OK);
         } catch (IOException e){
             log.debug(e.getMessage(), e);
-            throw new RuntimeException("파일 다운로드 실패");
+            throw new FileDownloadException();
+        } catch (Exception e){
+            throw new FileDownloadException();
         }
     }
 

@@ -3,8 +3,8 @@ package com.timmy.TimmyRoom.excpetion;
 import com.timmy.TimmyRoom.gloabl.error.exception.BusinessException;
 import com.timmy.TimmyRoom.gloabl.error.exception.ErrorCode;
 
-public class FileUploadException extends BusinessException {
-    public FileUploadException() {
-        super(ErrorCode.FILE_UPLOAD_FAIL);
+public class FileDownloadException extends BusinessException {
+    public FileDownloadException() {
+        super(ErrorCode.FILE_DOWNLOAD_FAIl);
     }
 }
