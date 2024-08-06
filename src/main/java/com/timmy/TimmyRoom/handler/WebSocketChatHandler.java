@@ -27,8 +27,6 @@ public class WebSocketChatHandler extends TextWebSocketHandler {
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         log.info("{} 연결됨", session.getId());
-        chatService.createChatRoom(session.getId());
-//        sessions.add(session);
     }
 
     // 소켓 통신 시 메시지의 전송을 다루는 부분
