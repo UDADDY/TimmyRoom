@@ -1,5 +1,6 @@
 package com.timmy.TimmyRoom.controller;
 
+import com.timmy.TimmyRoom.dto.request.FileDownloadRequestDTO;
 import com.timmy.TimmyRoom.gloabl.error.ErrorResponse;
 import com.timmy.TimmyRoom.service.FileService;
 import com.timmy.TimmyRoom.entity.File;
@@ -30,7 +31,7 @@ public class FileController {
 
     private final FileService fileService;
 
-    @PostMapping
+    @PostMapping("/upload")
     @Operation(summary = "파일 업로드")
     @ApiResponses(
             value = {
@@ -60,7 +61,7 @@ public class FileController {
         return ResponseEntity.status(HttpStatus.CREATED).body(file);
     }
 
-    @GetMapping("/{fileId}")
+    @PostMapping("/download")
     @Operation(summary = "파일 다운로드")
     @ApiResponses(
             value = {
@@ -83,10 +84,10 @@ public class FileController {
     )
     public ResponseEntity<?> downloadFile(
             @AuthenticationPrincipal UserDetails userDetails,
-            @PathVariable("fileId") String fileId
+            @RequestBody FileDownloadRequestDTO request
     ){
-        log.debug("download: ${}, email: ${}", fileId, userDetails.getUsername());
-        return fileService.downloadFileBlob(fileId);
+        log.debug("download: ${}, email: ${}", request.getId(), userDetails.getUsername());
+        return fileService.downloadFileBlob(request.getId());
     }
 
     @GetMapping
