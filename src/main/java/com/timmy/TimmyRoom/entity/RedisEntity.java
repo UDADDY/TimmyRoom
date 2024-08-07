@@ -1,5 +1,6 @@
 package com.timmy.TimmyRoom.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Id;
 import lombok.Builder;
 import lombok.Getter;
@@ -13,9 +14,13 @@ public class RedisEntity {
     public Long id;
     public String name;
 
+    @JsonIgnore
+    private User user;
+
     @Builder
-    public RedisEntity(Long id, String name) {
+    public RedisEntity(Long id, String name, User user) {
         this.id = id;
         this.name = name;
+        this.user = user;
     }
 }
