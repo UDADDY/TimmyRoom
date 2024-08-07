@@ -8,6 +8,7 @@ import io.jsonwebtoken.JwtException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageConversionException;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -63,6 +64,16 @@ public class ExceptionResponseHandler {
     @ExceptionHandler(HttpMessageNotReadableException.class)
     protected ResponseEntity<ErrorResponse> handleHttpMessageNotReadableException(HttpMessageNotReadableException exception){
         log.error("HttpMessageNotReadableException", exception);
+
+        ErrorCode errorCode = ErrorCode.INVALID_INPUT_VALUE;
+        ErrorResponse errorResponse = new ErrorResponse(errorCode);
+
+        return new ResponseEntity<>(errorResponse, HttpStatusCode.valueOf(errorCode.getStatus()));
+    }
+
+    @ExceptionHandler(HttpMessageConversionException.class)
+    protected ResponseEntity<ErrorResponse> handleHttpMessageConversionException(HttpMessageConversionException exception){
+        log.error("HttpMessageConversionException", exception);
 
         ErrorCode errorCode = ErrorCode.INVALID_INPUT_VALUE;
         ErrorResponse errorResponse = new ErrorResponse(errorCode);
