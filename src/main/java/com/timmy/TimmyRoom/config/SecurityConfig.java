@@ -1,8 +1,7 @@
-package com.timmy.TimmyRoom.gloabl.config;
+package com.timmy.TimmyRoom.config;
 
 import com.timmy.TimmyRoom.gloabl.auth.CustomOAtuh2UserService;
 import com.timmy.TimmyRoom.gloabl.auth.JwtFilter;
-import com.timmy.TimmyRoom.gloabl.auth.JwtUtil;
 import com.timmy.TimmyRoom.handler.JwtAccessDeniedHandler;
 import com.timmy.TimmyRoom.handler.JwtAuthenticationEntryPoint;
 import lombok.AllArgsConstructor;

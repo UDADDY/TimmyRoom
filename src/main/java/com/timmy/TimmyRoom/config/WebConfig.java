@@ -1,4 +1,4 @@
-package com.timmy.TimmyRoom.gloabl.config;
+package com.timmy.TimmyRoom.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;

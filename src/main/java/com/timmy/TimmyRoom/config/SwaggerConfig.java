@@ -1,4 +1,4 @@
-package com.timmy.TimmyRoom.gloabl.config;
+package com.timmy.TimmyRoom.config;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Info;

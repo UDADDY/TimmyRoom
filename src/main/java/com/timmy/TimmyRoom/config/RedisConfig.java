@@ -1,4 +1,4 @@
-package com.timmy.TimmyRoom.gloabl.config;
+package com.timmy.TimmyRoom.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

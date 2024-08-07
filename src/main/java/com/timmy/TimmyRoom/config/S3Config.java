@@ -1,4 +1,4 @@
-package com.timmy.TimmyRoom.gloabl.config;
+package com.timmy.TimmyRoom.config;
 
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
