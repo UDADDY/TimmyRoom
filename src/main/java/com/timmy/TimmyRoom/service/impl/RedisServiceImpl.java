@@ -1,17 +1,20 @@
 package com.timmy.TimmyRoom.service.impl;
 
+import com.timmy.TimmyRoom.dto.request.RedisEntityRequestDTO;
+import com.timmy.TimmyRoom.entity.RedisEntity;
+import com.timmy.TimmyRoom.entity.User;
+import com.timmy.TimmyRoom.excpetion.RedisEntityNotFound;
+import com.timmy.TimmyRoom.repository.RedisEntityRepository;
 import com.timmy.TimmyRoom.service.RedisService;
+import com.timmy.TimmyRoom.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
-
-import java.time.Duration;
 
 @Service
 @RequiredArgsConstructor
 public class RedisServiceImpl implements RedisService {
-    private final RedisTemplate<String, Object> redisTemplate;
+    private final RedisEntityRepository redisEntityRepository;
+    private final UserService userService;
 
 
     /**
@@ -27,23 +30,16 @@ public class RedisServiceImpl implements RedisService {
         values.set(key, value);
     }
 
-    /**
-     * Redis 값을 등록/수정합니다.
-     *
-     * @param {String} key : redis key
-     * @param {Stirng} value : redis value
-     * @param {Duration} duration: redis 값 메모리 상의 유효시간
-     * @return {void}
-     */
     @Override
-    public void setValues(String key, String value, Duration duration) {
-        if(duration == null) {
-            setValues(key, value);
-            return;
-        }
+    public RedisEntity save(RedisEntityRequestDTO redisEntityRequestDTO, String email) {
+        User user = userService.findUserByEmail(email);
+        RedisEntity redisEntity = RedisEntity.builder()
+                .id(redisEntityRequestDTO.getId())
+                .name(redisEntityRequestDTO.getName())
+                .user(user)
+                .build();
 
-        ValueOperations<String, Object> values = redisTemplate.opsForValue();
-        values.set(key, value, duration);
+        return redisEntityRepository.save(redisEntity);
     }
 
     /**

@@ -22,8 +22,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class RedisTestController {
 
-//    private final RedisService redisService;
-    private final RedisEntityRepository redisEntityRepository;
+    private final RedisService redisService;
 
     @GetMapping("/{id}")
     @Operation(summary = "레디스 엔티티 조회")
@@ -68,13 +67,8 @@ public class RedisTestController {
                     )
             }
     )
-    public ResponseEntity<?> setValue(@RequestBody RedisEntityRequestDTO redisEntityRequestDTO){
-        RedisEntity redisEntity = RedisEntity.builder()
-                .id(redisEntityRequestDTO.getId())
-                .name(redisEntityRequestDTO.getName())
-                .build();
-
-        RedisEntity saved = redisEntityRepository.save(redisEntity);
+    public ResponseEntity<?> setValue(@AuthenticationPrincipal UserDetails userDetails, @RequestBody RedisEntityRequestDTO redisEntityRequestDTO){
+        RedisEntity saved = redisService.save(redisEntityRequestDTO, userDetails.getUsername());
 
         return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
