@@ -39,15 +39,14 @@ public class WebSocketChatHandler extends TextWebSocketHandler {
         ChatMessageDTO chatMessageDTO = mapper.readValue(payload, ChatMessageDTO.class);
         log.info("session {}", chatMessageDTO.toString());
 
-        ChatRoom chatRoom = chatRoomService.findRoomById(chatMessageDTO.getChatRoomId());
-//        Set<WebSocketSession> chatRoomSessions = chatRoom.getSessions();
-        Set<WebSocketSession> chatRoomSessions = null;
+        Long chatRoomId = chatMessageDTO.getChatRoomId();
+        Set<WebSocketSession> chatRoomSessions = chatRoomService.getSessions(chatRoomId);
 
         if(chatMessageDTO.getMessageType().equals(MessageType.ENTER)){
-            chatRoomSessions.add(session);
+            chatRoomService.addSession(chatRoomId, session);
             chatMessageDTO.setMessage(chatMessageDTO.getSender() + "님이 입장했습니다.");
         } else if (chatMessageDTO.getMessageType().equals(MessageType.QUIT)) {
-            chatRoomSessions.remove(session);
+            chatRoomService.removeSession(chatRoomId, session);
             chatMessageDTO.setMessage(chatMessageDTO.getSender() + "님이 퇴장했습니다.");
         }
         sendMessageToChatRoom(chatMessageDTO, chatRoomSessions);
@@ -57,7 +56,9 @@ public class WebSocketChatHandler extends TextWebSocketHandler {
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
         log.info("{} 연결 끊김.", session.getId());
-//        sessions.remove(session);
+
+        // 세션이 속한 모든 채팅방에서 세션 제거
+//        chatRoomService.getSessions().forEach((chatRoomId, sessions) -> sessions.remove(session));
     }
 
     private void sendMessageToChatRoom(ChatMessageDTO chatMessageDTO, Set<WebSocketSession> chatRoomSession) {
