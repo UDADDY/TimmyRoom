@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.timmy.TimmyRoom.dto.request.LoginRequestDTO;
 import com.timmy.TimmyRoom.dto.request.SignupRequestDTO;
 import com.timmy.TimmyRoom.entity.User;
+import com.timmy.TimmyRoom.excpetion.UserAlreadyExistsException;
 import com.timmy.TimmyRoom.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -23,7 +24,6 @@ public class AuthService {
     private final JwtUtil jwtUtil;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-    private final ObjectMapper objectMapper;
 
     @Transactional
     public String login(LoginRequestDTO dto){
@@ -37,7 +37,9 @@ public class AuthService {
 
     @Transactional
     public User signup(SignupRequestDTO request) {
-        // To Do: 유저 중복 검사
+        if(userRepository.existsById(request.getEmail()))
+            throw new UserAlreadyExistsException();
+
         User user = User.builder()
                 .password(passwordEncoder.encode(request.getPassword()))
                 .email(request.getEmail())

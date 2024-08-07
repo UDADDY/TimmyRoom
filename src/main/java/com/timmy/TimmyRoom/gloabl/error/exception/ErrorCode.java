@@ -13,6 +13,7 @@ public enum ErrorCode {
     // User
     USER_ACCESS_DENIED("U01", "User Access is Denied.", HttpStatus.UNAUTHORIZED.value()),
     USER_NOT_FOUND("U02", "User is not Found.", HttpStatus.BAD_REQUEST.value()),
+    USER_ALREADY_EXISTS("U03", "User Already Exists.", HttpStatus.CONFLICT.value()),
 
     // Token
     INVALID_TOKEN("T01", "Token is Invalid.", HttpStatus.UNAUTHORIZED.value()),
