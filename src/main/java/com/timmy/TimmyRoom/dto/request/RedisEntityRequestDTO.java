@@ -6,8 +6,8 @@ import lombok.Data;
 @Data
 public class RedisEntityRequestDTO {
     @Schema(example = "1")
-    private final Long id;
+    private Long id;
 
     @Schema(example = "anything")
-    private final String name;
+    private String name;
 }
