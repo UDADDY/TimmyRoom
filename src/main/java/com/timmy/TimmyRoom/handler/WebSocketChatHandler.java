@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.timmy.TimmyRoom.dto.ChatMessageDTO;
 import com.timmy.TimmyRoom.entity.ChatRoom;
 import com.timmy.TimmyRoom.entity.MessageType;
-import com.timmy.TimmyRoom.service.ChatService;
+import com.timmy.TimmyRoom.service.ChatRoomService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -21,7 +21,7 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class WebSocketChatHandler extends TextWebSocketHandler {
     private final ObjectMapper mapper = new ObjectMapper();
-    private final ChatService chatService;
+    private final ChatRoomService chatRoomService;
 
     // 소켓 연결 확인
     @Override
@@ -39,8 +39,9 @@ public class WebSocketChatHandler extends TextWebSocketHandler {
         ChatMessageDTO chatMessageDTO = mapper.readValue(payload, ChatMessageDTO.class);
         log.info("session {}", chatMessageDTO.toString());
 
-        ChatRoom chatRoom = chatService.findRoomById(chatMessageDTO.getChatRoomId());
-        Set<WebSocketSession> chatRoomSessions = chatRoom.getSessions();
+        ChatRoom chatRoom = chatRoomService.findRoomById(chatMessageDTO.getChatRoomId());
+//        Set<WebSocketSession> chatRoomSessions = chatRoom.getSessions();
+        Set<WebSocketSession> chatRoomSessions = null;
 
         if(chatMessageDTO.getMessageType().equals(MessageType.ENTER)){
             chatRoomSessions.add(session);

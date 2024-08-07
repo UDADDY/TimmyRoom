@@ -6,8 +6,8 @@ import lombok.Data;
 
 @Data
 public class ChatRoomDTO {
-    @Schema(example = "example-of-chatRoomId")
-    private String roomId;
+    @Schema(example = "1")
+    private Long roomId;
 
     @Schema(example = "선린찐따들")
     private String name;
@@ -18,7 +18,7 @@ public class ChatRoomDTO {
     public static ChatRoomDTO fromEntity(ChatRoom chatRoom){
         ChatRoomDTO chatRoomDTO = new ChatRoomDTO();
 
-        chatRoomDTO.roomId = chatRoom.getRoomId();
+        chatRoomDTO.roomId = chatRoom.getId();
         chatRoomDTO.name = chatRoom.getName();
         chatRoomDTO.host = chatRoom.getHost();
 

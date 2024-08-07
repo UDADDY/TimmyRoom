@@ -4,7 +4,7 @@ import com.timmy.TimmyRoom.dto.ChatRoomDTO;
 import com.timmy.TimmyRoom.entity.ChatRoom;
 import com.timmy.TimmyRoom.dto.request.ChatRoomCreateRequestDTO;
 import com.timmy.TimmyRoom.gloabl.error.ErrorResponse;
-import com.timmy.TimmyRoom.service.ChatService;
+import com.timmy.TimmyRoom.service.ChatRoomService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -28,8 +28,8 @@ import java.util.List;
 @Tag(name = "채팅방")
 @RequiredArgsConstructor
 @Slf4j
-public class ChatController {
-    private final ChatService chatService;
+public class ChatRoomController {
+    private final ChatRoomService chatRoomService;
 
     @GetMapping
     @Operation(summary = "모든 채팅방 조회")
@@ -48,7 +48,7 @@ public class ChatController {
             }
     )
     public ResponseEntity<List<ChatRoomDTO>> getAllChatRooms(){
-        List<ChatRoom> allChatRooms = chatService.findAllRomms();
+        List<ChatRoom> allChatRooms = chatRoomService.findAllChatRooms();
         List<ChatRoomDTO> chatRoomDTOS = allChatRooms.stream().map(chatRoom ->
                 ChatRoomDTO.fromEntity(chatRoom)).toList();
 
@@ -80,13 +80,13 @@ public class ChatController {
             @AuthenticationPrincipal UserDetails userDetails,
             @RequestBody @Valid ChatRoomCreateRequestDTO chatRoomCreateRequestDTO
     ){
-        ChatRoom chatRoom = chatService.createChatRoom(chatRoomCreateRequestDTO.getChatRoomName(), userDetails.getUsername());
+        ChatRoom chatRoom = chatRoomService.createChatRoom(chatRoomCreateRequestDTO.getChatRoomName(), userDetails.getUsername());
         ChatRoomDTO chatRoomDTO = ChatRoomDTO.fromEntity(chatRoom);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(chatRoomDTO);
     }
 
-    @GetMapping("/{roomId}")
+    @GetMapping("/{chatRoomId}")
     @Operation(summary = "채팅방 ID로 조회")
     @ApiResponses(
             value = {
@@ -107,8 +107,8 @@ public class ChatController {
                     )
             }
     )
-    public ResponseEntity<?> getChatRoom(@PathVariable("chatRoomId") String chatRoomId){
-        ChatRoom chatRoom = chatService.findRoomById(chatRoomId);
+    public ResponseEntity<?> getChatRoom(@PathVariable("chatRoomId") Long chatRoomId){
+        ChatRoom chatRoom = chatRoomService.findRoomById(chatRoomId);
         ChatRoomDTO chatRoomDTO = ChatRoomDTO.fromEntity(chatRoom);
 
         return ResponseEntity.ok(chatRoomDTO);
