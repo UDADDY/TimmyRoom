@@ -1,13 +1,14 @@
 package com.timmy.TimmyRoom.service;
 
+import com.timmy.TimmyRoom.dto.request.RedisEntityRequestDTO;
+import com.timmy.TimmyRoom.entity.RedisEntity;
 import org.springframework.stereotype.Service;
-
-import java.time.Duration;
 
 @Service
 public interface RedisService {
-    void setValues(String key, String value);
-    void setValues(String key, String value, Duration duration);
-    String getValue(String key);
-    void deleteValue(String key);
+    public RedisEntity findById(Long id);
+
+    RedisEntity save(RedisEntityRequestDTO redisEntityRequestDTO, String email);
+
+    void deleteById(Long id);
 }

@@ -2,8 +2,7 @@ package com.timmy.TimmyRoom.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Id;
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 import org.springframework.data.redis.core.RedisHash;
 
 @Getter
