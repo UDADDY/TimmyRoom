@@ -6,9 +6,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface RedisService {
-    public RedisEntity findById(Long id);
+    RedisEntity findById(Long id);
 
     RedisEntity save(RedisEntityRequestDTO redisEntityRequestDTO, String email);
 
-    void deleteById(Long id);
+    void deleteById(Long id, String email);
 }

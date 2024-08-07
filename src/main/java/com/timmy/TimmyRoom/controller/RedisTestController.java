@@ -69,9 +69,9 @@ public class RedisTestController {
             }
     )
     public ResponseEntity<?> setValue(@AuthenticationPrincipal UserDetails userDetails, @RequestBody RedisEntityRequestDTO redisEntityRequestDTO){
-        RedisEntity saved = redisService.save(redisEntityRequestDTO, userDetails.getUsername());
+        RedisEntity redisEntity = redisService.save(redisEntityRequestDTO, userDetails.getUsername());
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(saved);
+        return ResponseEntity.status(HttpStatus.CREATED).body(redisEntity);
     }
 
     @DeleteMapping("/{id}")
@@ -89,8 +89,8 @@ public class RedisTestController {
                     )
             }
     )
-    public ResponseEntity<?> deleteRow(@PathVariable Long id){
-        redisEntityRepository.deleteById(id);
+    public ResponseEntity<?> deleteRow(@AuthenticationPrincipal UserDetails userDetails, @PathVariable("id") Long id){
+        redisService.deleteById(id, userDetails.getUsername());
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

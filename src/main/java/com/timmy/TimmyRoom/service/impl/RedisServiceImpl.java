@@ -34,7 +34,7 @@ public class RedisServiceImpl implements RedisService {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public void deleteById(Long id, String email) {
         redisEntityRepository.deleteById(id);
     }
 }

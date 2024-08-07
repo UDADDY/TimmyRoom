@@ -16,8 +16,12 @@ public class User {
 
     @Id
     private String email;
+
+    @JsonIgnore
     private String password;
     private String name;
+
+    @JsonIgnore
     private String role;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

@@ -6,8 +6,5 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-@Repository
-public interface RedisEntityRepository extends CrudRepository<RedisEntity, Long> {
-
-    Optional<RedisEntity> findById(Long id);
+public interface RedisEntityRepository extends CrudRepository<RedisEntity, Long > {
 }
