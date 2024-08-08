@@ -49,5 +49,5 @@ cloud:
 
 openai:
     model: gpt-4o-mini
-    secret-key: ${SECRET_KEY}
+    secret-key: ${CHATGPT_SECRET_KEY}
     prompt: https://api.openai.com/v1/completions
