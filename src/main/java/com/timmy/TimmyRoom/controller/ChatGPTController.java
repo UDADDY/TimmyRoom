@@ -1,6 +1,7 @@
 package com.timmy.TimmyRoom.controller;
 
-import com.timmy.TimmyRoom.dto.request.ChatCompletionDTO;
+import com.timmy.TimmyRoom.dto.request.AskRequestDTO;
+import com.timmy.TimmyRoom.dto.response.Choice;
 import com.timmy.TimmyRoom.service.ChatGPTService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -20,8 +22,8 @@ public class ChatGPTController {
     private final ChatGPTService chatGPTService;
 
     @PostMapping("/prompt")
-    public ResponseEntity<Map<String, Object>> selectPrompt(@RequestBody ChatCompletionDTO chatCompletionDTO){
-        Map<String, Object> result = chatGPTService.prompt(chatCompletionDTO);
+    public ResponseEntity<List<Choice>> selectPrompt(@RequestBody AskRequestDTO askRequestDTO){
+        List<Choice> result = chatGPTService.prompt(askRequestDTO);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }
