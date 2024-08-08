@@ -1,20 +1,20 @@
 package com.timmy.TimmyRoom.controller;
 
+import com.timmy.TimmyRoom.dto.request.MuseumGetReqeustDTO;
 import com.timmy.TimmyRoom.repository.MuseumRepository;
+import com.timmy.TimmyRoom.service.MuseunService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/museum")
 public class MuseumController {
-    private final MuseumRepository museumRepository;
+    private final MuseunService museunService;
 
-    @GetMapping
-    public ResponseEntity<?> test(){
-        return ResponseEntity.ok(museumRepository.findAll());
+    @PostMapping("/near")
+    public ResponseEntity<?> getMuseumByDistance(@RequestBody MuseumGetReqeustDTO museumGetReqeustDTO){
+        return ResponseEntity.ok(museunService.getNearByMuseum(museumGetReqeustDTO));
     }
 }
