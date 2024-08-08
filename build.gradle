@@ -54,8 +54,12 @@ dependencies {
 	// dotenv
 	implementation("me.paulschwarz:spring-dotenv:4.0.0")
 
-	// aws
+	// AWS S3
 	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
+
+	// Mail
+	implementation 'com.amazonaws:aws-java-sdk-ses:1.12.3'
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
 
 	// Redis
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis', version: '3.3.2'
