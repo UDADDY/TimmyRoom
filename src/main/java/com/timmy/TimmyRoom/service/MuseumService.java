@@ -4,8 +4,10 @@ import com.timmy.TimmyRoom.dto.Direction;
 import com.timmy.TimmyRoom.dto.Location;
 import com.timmy.TimmyRoom.dto.request.MuseumGetReqeustDTO;
 import com.timmy.TimmyRoom.entity.Museum;
+import com.timmy.TimmyRoom.repository.MuseumRepository;
 import com.timmy.TimmyRoom.util.GeometryUtil;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.Query;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,9 +17,10 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class MuseunService {
+public class MuseumService {
 
     private final EntityManager em;
+    private final MuseumRepository museumRepository;
 
     @Transactional
     public List<Museum> getNearByMuseum(MuseumGetReqeustDTO museumGetReqeustDTO){
@@ -44,5 +47,9 @@ public class MuseunService {
 
         List<Museum> museums = query.getResultList();
         return museums;
+    }
+
+    public Museum findById(Long museumId) {
+        return museumRepository.findById(museumId).orElseThrow(() -> new EntityNotFoundException());
     }
 }

@@ -29,6 +29,10 @@ public class User {
     @JsonIgnore
     private List<File> files;
 
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<UserMuseum> userMuseums;
+
     public User update(String name){
         this.name = name;
 
