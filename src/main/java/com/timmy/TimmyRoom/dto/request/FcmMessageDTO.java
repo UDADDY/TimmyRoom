@@ -1,9 +1,7 @@
 package com.timmy.TimmyRoom.dto.request;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.Getter;
 
 @Data
 public class FcmMessageDTO {
@@ -14,6 +12,12 @@ public class FcmMessageDTO {
     public static class Message{
         private FcmMessageDTO.Notification notification;
         private String token;
+
+        @Builder
+        public Message(Notification notification, String token) {
+            this.notification = notification;
+            this.token = token;
+        }
     }
 
     @Data
@@ -28,5 +32,11 @@ public class FcmMessageDTO {
             this.body = body;
             this.image = image;
         }
+    }
+
+    @Builder
+    public FcmMessageDTO(boolean validateOnly, Message message) {
+        this.validateOnly = validateOnly;
+        this.message = message;
     }
 }
