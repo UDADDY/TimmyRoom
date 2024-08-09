@@ -5,6 +5,7 @@ server:
             cookie:
                 secure: true
                 same-site: strict
+    forward-headers-strategy: framework
 
 spring:
     datasource:
