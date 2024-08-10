@@ -55,8 +55,3 @@ cloud:
         ses:
             access-key: ${SES_ACCESS_KEY}
             secret-key: ${SES_SECRET_KEY}
-
-openai:
-    model: gpt-4o-mini
-    secret-key: ${CHATGPT_SECRET_KEY}
-    prompt: https://api.openai.com/v1/chat/completions
